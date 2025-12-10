@@ -50,7 +50,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Password salah" });
     }
 
-        const userLevel = nip === "admin123" ? "admin" : "user"; // contoh sederhana
+        const userLevel = nip === "123456" ? "admin" : "user"; // contoh sederhana
     // Buat token JWT
         const token = jwt.sign(
       { id: user.id, nip: user.nip, userLevel }, // userLevel hanya di token
