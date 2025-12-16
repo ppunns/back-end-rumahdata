@@ -9,10 +9,7 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const result = await pool.query(
-      "INSERT INTO users (nip, password) VALUES ($1, $2) RETURNING id, nip",
-      [nip, hashedPassword]
-    );
+    const result = await pool.query("INSERT INTO users (nip, password) VALUES ($1, $2) RETURNING id, nip", [nip, hashedPassword]);
 
     res.json({
       message: "Registrasi berhasil",
@@ -34,9 +31,7 @@ export const login = async (req, res) => {
   try {
     const { nip, password } = req.body;
 
-    const result = await pool.query("SELECT * FROM users WHERE nip = $1", [
-      nip,
-    ]);
+    const result = await pool.query("SELECT * FROM users WHERE nip = $1", [nip]);
 
     if (result.rows.length === 0) {
       return res.status(400).json({ error: "NIP tidak ditemukan" });
@@ -71,4 +66,3 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res.json({ message: "Logout berhasil" });
 };
-

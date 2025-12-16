@@ -13,3 +13,14 @@ export const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
+
+export async function connectDB() {
+  try {
+    const client = await pool.connect();
+    console.log("Database connected");
+    client.release();
+  } catch (error) {
+    console.log("Database connection error");
+    process.exit(1);
+  }
+}
